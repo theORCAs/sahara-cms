@@ -1,0 +1,106 @@
+@extends('layouts.main')
+
+@section('content')
+
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <!-- BEGIN PAGE HEADER-->
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <div class="page-toolbar">
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li>
+                            <a href="/hrm_hotelcity/create"><i class="fa fa-plus"></i> Add new</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h3 class="page-title hidden"> User Types
+            <small>Define system user types</small>
+        </h3>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        @if($errors->count() > 0)
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <h4 class="alert-heading"><i class="fa fa-warning"></i> Error</h4>
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+        @if(Session::has("msj"))
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <h4 class="alert-heading"><i class="fa fa-check-square-o"></i> Success</h4>
+                {{Session::get("msj")}}
+            </div>
+        @endif
+        @if(session()->has("err_msj"))
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <h4 class="alert-heading"><i class="fa fa-warning"></i> Error</h4>
+                {{Session::get("err_msj")}}
+            </div>
+        @endif
+        <div class="row">
+            <div class="col-md-6">
+                <div class="portlet box red">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-picture"></i> Hotel Cities</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                            <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
+                            <a href="javascript:;" class="reload" data-original-title="" title=""> </a>
+                            <a href="javascript:;" class="remove" data-original-title="" title=""> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-scrollable">
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                <tr>
+                                    <th> # </th>
+                                    <th> Name </th>
+                                    <th> City Code </th>
+                                    <th> Action </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($liste as $key => $row)
+                                    <tr>
+                                        <td>{{$key + 1}}</td>
+                                        <td>{{$row->adi}}</td>
+                                        <td>{{$row->plaka}}</td>
+                                        <td class="text-center">
+                                            <a href="/hrm_hotelcity/{{$row->id}}/edit" class="btn btn-xs btn-primary tooltips" data-container="body" data-placement="left" data-original-title="Update '{{$row->adi}}'"><i class="fa fa-pencil"></i></a>
+                                            <a href="javascript:;" class="btn btn-xs btn-danger tooltips" data-container="body" data-placement="left" data-original-title="Delete '{{$row->adi}}'" onclick="silmeKontrol('{{$row->id}}', '/hrm_hotelcity')"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT BODY -->
+@endsection
+@section("css")
+    <!--  css dosyaları yuklenir -->
+
+@endsection
+@section("js")
+    <!-- javascript yüklenir -->
+
+@endsection
